@@ -218,7 +218,7 @@ chatForm.onsubmit=async e=>{
  box.appendChild(typing); box.scrollTop=box.scrollHeight;  
   
  const res=await fetch("/chat",{method:"POST",headers:{"Content-Type":"application/json"},  
- body:JSON.stringify({text:textInput.value})});  
+ body:JSON.stringify({message:textInput.value})});  
  const data=await res.json();  
   
  typing.remove();  
@@ -244,7 +244,7 @@ def chat():
 
     ai_reply = ask_ai(user_msg)
 
-    return jsonify({"reply": "سلام من ردلایتم"})
+    return jsonify({"reply": ai_reply})
 
 @app.route("/feedback", methods=["POST"])
 def feedback():
