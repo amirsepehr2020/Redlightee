@@ -1,5 +1,5 @@
 from flask import Flask, request, jsonify, render_template_string
-from bot import even
+from bot import ask_ai
 import json, os
 from datetime import datetime
 
@@ -238,9 +238,11 @@ feedbackBtn.onclick=e=>{
 </html>  
 """)
 
-@app.route("/chat", methods=["POST"])
-def chat():    
-    return jsonify({"reply": even(request.json.get("text",""))})
+@app.route("/ai")
+def ai():
+    text = request.args.get("q")
+    answer = ask_ai(text)
+    return answer
 
 @app.route("/feedback", methods=["POST"])
 def feedback():
