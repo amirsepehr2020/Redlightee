@@ -244,7 +244,7 @@ def chat():
 
     ai_reply = ask_ai(user_msg)
 
-    return jsonify({"reply": ai_reply})
+    return jsonify({"reply": "سلام من ردلایتم"})
 
 @app.route("/feedback", methods=["POST"])
 def feedback():
