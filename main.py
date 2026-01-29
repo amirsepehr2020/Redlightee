@@ -240,7 +240,7 @@ feedbackBtn.onclick=e=>{
 
 @app.route("/chat", methods=["POST"])
 def chat():
-    user_msg = request.json.get("text")
+    user_msg = request.json.get("message")
 
     ai_reply = ask_ai(user_msg)
 
