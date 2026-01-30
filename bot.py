@@ -8,7 +8,7 @@ client = Groq(
 def ask_ai(user_message):
     try:
         completion = client.chat.completions.create(
-            model="groq/compound",
+            model="llama-3.1-8b-instant",
             messages=[
                 {"role": "user", "content": user_message}
             ],
