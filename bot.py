@@ -8,7 +8,7 @@ client = Groq(
 def ask_ai(user_message):
     try:
         completion = client.chat.completions.create(
-            model="openai/gpt-oss-120b",
+            model="groq/compound",
             messages=[
                 {"role": "user", "content": user_message}
             ],
