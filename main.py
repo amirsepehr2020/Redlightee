@@ -39,6 +39,8 @@ def index():
 <link rel="apple-touch-icon" href="https://s8.uupload.ir/files/favicon_nw0z.png">
 <meta property="og:image" content="https://s8.uupload.ir/files/favicon_nw0z.png">
 <title>Redlighte chat | هوش مصنوعي ردلايت</title>  <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazir-font@v30.1.0/dist/font-face.css" rel="stylesheet">  <style>  
+<meta name="description" content="Redlighte Chat | هوش مصنوعی فارسی برای گفتگو، پاسخ به سوالات، کمک در یادگیری و تجربه یک چت آنلاین سریع و هوشمند با ردلایت.">
+<link rel="icon" href="https://s8.uupload.ir/files/favicon_nw0z.png" type="image/png">
 @font-face {  
     font-family: 'Pacifico';  
     src: url('/static/pacifico-regular.ttf') format('truetype');  
