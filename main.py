@@ -2,6 +2,8 @@ from flask import Flask, request, jsonify, render_template_string
 from bot import ask_ai
 import json, os
 from datetime import datetime
+from github_logger import push_chat_to_github
+
 
 app = Flask(__name__, static_folder="static")  # <- اینجا هم name رو باید __name__ بذاری
 FEEDBACK_FILE = "feedback.json"
@@ -248,6 +250,8 @@ def chat():
 
     ai_reply = ask_ai(user_msg)
 
+    push_chat_to_github(user_msg, ai_reply)
+    
     return jsonify({"reply": ai_reply})
 
 @app.route("/feedback", methods=["POST"])
