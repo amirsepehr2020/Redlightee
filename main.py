@@ -37,6 +37,7 @@ def index():
 <meta name="google-site-verification" content="v10a70r4wwCAfx1nS31l8sJT4cwykghFkAkvSeJRPgY" />
 <meta charset="UTF-8">  
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Redlighte Chat | هوش مصنوعی فارسی برای گفتگو، پاسخ به سوالات، کمک در یادگیری و تجربه یک چت آنلاین سریع و هوشمند با ردلایت.">
 <link rel="icon" href="https://s8.uupload.ir/files/favicon_nw0z.png" type="image/png">
 <link rel="apple-touch-icon" href="https://s8.uupload.ir/files/favicon_nw0z.png">
 <meta property="og:image" content="https://s8.uupload.ir/files/favicon_nw0z.png">
