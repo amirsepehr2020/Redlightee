@@ -9,6 +9,11 @@ USERNAME = os.environ.get("GITHUB_USERNAME")
 REPO = os.environ.get("GITHUB_REPO")
 
 def push_chat_to_github(user_msg, ai_msg):
+    if not GITHUB_TOKEN or not USERNAME or not REPO:
+        print("❌ GitHub ENV vars missing")
+        print(GITHUB_TOKEN, USERNAME, REPO)
+        return
+
     filename = f"logs/{datetime.now().strftime('%Y-%m-%d')}.json"
     api_url = f"https://api.github.com/repos/{USERNAME}/{REPO}/contents/{filename}"
 
@@ -17,8 +22,12 @@ def push_chat_to_github(user_msg, ai_msg):
         "Accept": "application/vnd.github.v3+json"
     }
 
+    print("📡 GitHub API:", api_url)
+
     # گرفتن فایل قبلی
     r = requests.get(api_url, headers=headers)
+    print("🔍 GET status:", r.status_code)
+
     if r.status_code == 200:
         old_content = json.loads(
             base64.b64decode(r.json()["content"]).decode("utf-8")
@@ -46,4 +55,7 @@ def push_chat_to_github(user_msg, ai_msg):
     if sha:
         payload["sha"] = sha
 
-    requests.put(api_url, headers=headers, json=payload)
+    res = requests.put(api_url, headers=headers, json=payload)
+
+    print("🚀 PUT status:", res.status_code)
+    print("📨 Response:", res.text)
