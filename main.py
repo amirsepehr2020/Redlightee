@@ -255,7 +255,19 @@ feedbackBtn.onclick=e=>{
 
 @app.route("/manifest.json")
 def manifest():
-    return send_from_directory(".", "manifest.json")
+    return send_from_directory(".", "manifest.json", mimetype="application/manifest+json")
+
+@app.route("/sw.js")
+def sw():
+    return send_from_directory(".", "sw.js", mimetype="application/javascript")
+
+@app.route("/icon-192.png")
+def icon192():
+    return send_from_directory(".", "icon-192.png")
+
+@app.route("/icon-512.png")
+def icon512():
+    return send_from_directory(".", "icon-512.png")
 
 
 @app.route("/chat", methods=["POST"])
