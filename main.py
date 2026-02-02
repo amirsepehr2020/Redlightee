@@ -3,6 +3,7 @@ from bot import ask_ai
 import json, os
 from datetime import datetime
 from github_logger import push_chat_to_github
+from flask import send_from_directory
 
 
 app = Flask(__name__, static_folder="static")  # <- اینجا هم name رو باید __name__ بذاری
@@ -244,6 +245,11 @@ feedbackBtn.onclick=e=>{
 </script>  </body>  
 </html>  
 """)
+
+@app.route("/manifest.json")
+def manifest():
+    return send_from_directory(".", "manifest.json")
+
 
 @app.route("/chat", methods=["POST"])
 def chat():
