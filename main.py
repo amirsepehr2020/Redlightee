@@ -135,8 +135,8 @@ textarea#textInput{flex:1; resize:none; border:none; outline:none; background:tr
 }  
   
 .creator img {  
-  width: 20px;  
-  height: 20px;  
+  width: 40px;  
+  height: 40px;  
 }  
 </style>  </head>  <body>  
 <div class="chat-container">  
