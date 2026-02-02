@@ -6,7 +6,7 @@ from github_logger import push_chat_to_github
 from flask import send_from_directory
 
 
-app = Flask(__name__, static_folder="static")  # <- اینجا هم name رو باید __name__ بذاری
+app = Flask(__name__, static_folder="static", static_url_path="")  # <- اینجا هم name رو باید __name__ بذاری
 FEEDBACK_FILE = "feedback.json"
 
 def save_feedback(data):
@@ -40,6 +40,7 @@ def index():
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="Redlighte Chat | هوش مصنوعی فارسی برای گفتگو، پاسخ به سوالات، کمک در یادگیری و تجربه یک چت آنلاین سریع و هوشمند با ردلایت.">
 <link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#8b0000">
 <link rel="icon" href="https://s8.uupload.ir/files/favicon_nw0z.png" type="image/png">
 <link rel="apple-touch-icon" href="https://s8.uupload.ir/files/favicon_nw0z.png">
 <meta property="og:image" content="https://s8.uupload.ir/files/favicon_nw0z.png">
