@@ -161,7 +161,7 @@ textarea#textInput{flex:1; resize:none; border:none; outline:none; background:tr
  <button class="send-btn">➤</button>  
 </form>  
 </div>  <div class="version">  
-  Release 1.8.5.1
+  Release 1.9
   <div class="creator">  
     <span>by Red Boy</span>  
     <img src="https://s6.uupload.ir/files/inshot_20251227_204536460_j5j8.png">  
