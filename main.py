@@ -338,11 +338,82 @@ function addMsg(text,type){
    vibrateBot();
    }
 }
+function isImagePrompt(text){
+  return text.startsWith("/img ");
+}
   
-chatForm.onsubmit=async e=>{  
- e.preventDefault();  
- if(!textInput.value.trim())return;  
- addMsg(textInput.value,"user");  
+chatForm.onsubmit = async e => {
+    e.preventDefault();
+    const text = textInput.value.trim();
+    if (!text) return;
+
+    // اگه پرامت تصویر هست
+    if (text.startsWith("/img ")) {
+        addMsg(text, "user");  // نمایش پیام کاربر
+
+        const prompt = text.replace("/img ", "");
+        const typing = document.createElement("div");
+        typing.className = "msg bot-msg typing";
+        typing.innerHTML = "<span></span><span></span><span></span>";
+        box.appendChild(typing); 
+        box.scrollTop = box.scrollHeight;
+
+        try {
+            const res = await fetch("/image", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ prompt })
+            });
+            const data = await res.json();
+            typing.remove();
+
+            if (data.image) {
+                const imgMsg = document.createElement("div");
+                imgMsg.className = "msg bot-msg";
+                imgMsg.innerHTML = `<img src="${data.image}" style="max-width:100%;border-radius:14px;">`;
+                box.appendChild(imgMsg);
+                box.scrollTop = box.scrollHeight;
+            } else {
+                addMsg("❌ خطا در ساخت تصویر", "bot");
+            }
+        } catch (err) {
+            typing.remove();
+            addMsg("❌ خطا در ساخت تصویر", "bot");
+            console.error(err);
+        }
+
+        textInput.value = "";
+        textInput.style.height = 'auto';
+        return;  // همینجا تموم می‌شه، دیگه پیام عادی نمی‌ره
+    }
+
+    // پیام معمولی (chat bot)
+    addMsg(text, "user");
+
+    const typing = document.createElement("div");
+    typing.className = "msg bot-msg typing";
+    typing.innerHTML = "<span></span><span></span><span></span>";
+    box.appendChild(typing);
+    box.scrollTop = box.scrollHeight;
+
+    try {
+        const res = await fetch("/chat", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ message: text })
+        });
+        const data = await res.json();
+        typing.remove();
+        addMsg(data.reply, "bot");
+    } catch (err) {
+        typing.remove();
+        addMsg("❌ خطا در دریافت پاسخ", "bot");
+        console.error(err);
+    }
+
+    textInput.value = "";
+    textInput.style.height = 'auto';
+};
   
  const typing=document.createElement("div");  
  typing.className="msg bot-msg typing";  
