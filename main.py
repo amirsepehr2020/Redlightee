@@ -331,7 +331,9 @@ function addMsg(text,type){
  d.innerHTML=`<div>${text}</div><div class="time">${new Date().toLocaleTimeString().slice(0,5)}</div>`;  
  box.appendChild(d); box.scrollTop=box.scrollHeight;  
  if(type==="user") lastUser=text;  
- if(type==="bot") lastBot=text;  
+ if(type==="bot"){
+   lastBot=text;
+   vibrateBot();
 }  
   
 chatForm.onsubmit=async e=>{  
@@ -365,6 +367,12 @@ openLegal.onclick = () => {
 closeLegal.onclick = () => {
   legalModal.style.display = "none";
 };
+
+function vibrateBot(){
+  if (navigator.vibrate) {
+    navigator.vibrate(20); // 20 میلی‌ثانیه، خیلی ظریف
+  }
+}
 
 </script>  </body>  
 </html>  
