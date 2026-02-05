@@ -7,22 +7,7 @@ from flask import send_from_directory
 
 
 app = Flask(__name__, static_folder="static", static_url_path="")  # <- اینجا هم name رو باید __name__ بذاری
-FEEDBACK_FILE = "feedback.json"
 
-def save_feedback(data):
-    feedbacks = []  # پیشفرض
-
-    if os.path.exists(FEEDBACK_FILE):
-        with open(FEEDBACK_FILE, "r", encoding="utf-8") as f:
-            try:
-                feedbacks = json.load(f)
-            except Exception:
-                feedbacks = []
-
-    data["time"] = datetime.now().strftime("%H:%M")
-    feedbacks.append(data)
-    with open(FEEDBACK_FILE, "w", encoding="utf-8") as f:
-        json.dump(feedbacks, f, ensure_ascii=False, indent=2)
 
 
 @app.route("/")
@@ -126,7 +111,6 @@ body.dark .input-area{background:#2b2b2b}
   
 .send-btn,.feedback-btn{width:38px;height:38px;border-radius:50%;border:none;color:#fff;font-weight:900;cursor:pointer;}  
 .send-btn{background:#cc0000;margin-left:6px;}  
-.feedback-btn{background:#ff3300;margin-right:6px;box-shadow:0 0 10px rgba(255,51,0,.7);}  
   
 .version{margin-top:8px;font-size:17px;color:#fff;opacity:.8;}  
 textarea#textInput{flex:1; resize:none; border:none; outline:none; background:transparent; font-size:15px; color:var(--text); overflow-y:auto; min-height:24px; line-height:1.2;}  
@@ -156,7 +140,6 @@ textarea#textInput{flex:1; resize:none; border:none; outline:none; background:tr
 <img src="https://s6.uupload.ir/files/inshot_20251225_164915200_i1sr.png">  
 <h1>Redlighte chat</h1>  
 </div>  <div class="chat-box" id="chatBox"></div>  <form class="input-area" id="chatForm">  
- <button class="feedback-btn" id="feedbackBtn">❗</button>  
  <textarea id="textInput" placeholder="Ask Redlighte..." rows="1"></textarea>  
  <button class="send-btn">➤</button>  
 </form>  
@@ -242,13 +225,6 @@ chatForm.onsubmit=async e=>{
  textInput.style.height='auto';  
 };  
   
-feedbackBtn.onclick=e=>{  
- e.preventDefault();  
- if(!lastBot)return;  
- fetch("/feedback",{method:"POST",headers:{"Content-Type":"application/json"},  
- body:JSON.stringify({userMsg:lastUser,botMsg:lastBot})});  
- alert("وايسا ببينم چيو نفهميدم ؟؟ اها فهميدم❤️❤️");  
-};  
 </script>  </body>  
 </html>  
 """)
@@ -280,10 +256,6 @@ def chat():
     
     return jsonify({"reply": ai_reply})
 
-@app.route("/feedback", methods=["POST"])
-def feedback():
-    save_feedback(request.json)
-    return jsonify({"ok": True})
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 8000))
