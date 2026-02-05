@@ -111,8 +111,32 @@ body.dark .input-area{background:#2b2b2b}
   
 .send-btn,.feedback-btn{width:38px;height:38px;border-radius:50%;border:none;color:#fff;font-weight:900;cursor:pointer;}  
 .send-btn{background:#cc0000;margin-left:6px;}  
-  
-.version{margin-top:8px;font-size:17px;color:#fff;opacity:.8;}  
+.footer{
+  margin-top:12px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:6px;
+  color:#fff;
+  opacity:.85;
+}
+
+.release{
+  font-size:14px;
+}
+
+.creator{
+  display:flex;
+  align-items:center;
+  gap:6px;
+  font-size:11px;
+  opacity:.7;
+}
+
+.creator img{
+  width:26px;
+  height:26px;
+}
 textarea#textInput{flex:1; resize:none; border:none; outline:none; background:transparent; font-size:15px; color:var(--text); overflow-y:auto; min-height:24px; line-height:1.2;}  
   
 .creator {  
@@ -235,17 +259,23 @@ textarea#textInput{flex:1; resize:none; border:none; outline:none; background:tr
  <textarea id="textInput" placeholder="Ask Redlighte..." rows="1"></textarea>  
  <button class="send-btn">➤</button>  
 </form>  
-</div>  <div class="version">  
-  Release 1.9
-  <div class="creator">  
-    <span>by Red Boy</span>  
-    <img src="https://s6.uupload.ir/files/inshot_20251227_204536460_j5j8.png">  
-  </div>  
+<div class="footer">
+
+  <div class="release">
+    Release 1.9
+  </div>
+
+  <div class="creator">
+    <span>by Red Boy</span>
+    <img src="https://s6.uupload.ir/files/inshot_20251227_204536460_j5j8.png">
+  </div>
+
   <div class="legal">
-  <span id="openLegal">
-    تمامی اطلاعات ردلایت محفوظ است | قوانین
-  </span>
-</div>
+    <span id="openLegal">
+      تمامی اطلاعات ردلایت محفوظ است | قوانین
+    </span>
+  </div>
+
 </div>  
 <script>  
 const messages = [  
