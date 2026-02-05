@@ -342,7 +342,6 @@ function isImagePrompt(text){
   return text.startsWith("/img ");
 }
 
-const chatForm = document.getElementById("chatForm");
 
 chatForm.onsubmit = async e => {
     e.preventDefault();
