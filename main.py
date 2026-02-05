@@ -371,7 +371,7 @@ closeLegal.onclick = () => {
 
 function vibrateBot(){
   if (navigator.vibrate) {
-    navigator.vibrate(20); // 20 میلی‌ثانیه، خیلی ظریف
+    navigator.vibrate([30, 40, 30]); // 20 میلی‌ثانیه، خیلی ظریف
   }
 }
 
