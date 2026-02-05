@@ -130,7 +130,76 @@ textarea#textInput{flex:1; resize:none; border:none; outline:none; background:tr
   width: 30px;  
   height: 30px;  
 }  
+
+.legal{
+  margin-top:8px;
+  font-size:12px;
+  color:#aaa;
+  text-align:center;
+}
+
+.legal span{
+  cursor:pointer;
+  transition:.3s;
+}
+
+.legal span:hover{
+  color:#ff0033;
+  text-shadow:0 0 6px rgba(255,0,51,.6);
+}
+
+.legal-modal{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.6);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  z-index:999;
+}
+
+.legal-box{
+  background:#111;
+  color:#eee;
+  width:90%;
+  max-width:420px;
+  max-height:80vh;
+  overflow-y:auto;
+  padding:20px;
+  border-radius:14px;
+  box-shadow:0 0 30px rgba(255,0,0,.4);
+}
+
+.legal-box h2{
+  margin-top:0;
+  color:#ff0033;
+  text-align:center;
+}
+
+.legal-box button{
+  width:100%;
+  margin-top:16px;
+  padding:10px;
+  background:#ff0033;
+  border:none;
+  border-radius:10px;
+  color:#fff;
+  font-weight:bold;
+  cursor:pointer;
+}
 </style>  </head>  <body>  
+<div class="legal-modal" id="legalModal">
+  <div class="legal-box">
+    <h2>قوانین و حریم خصوصی ردلایت</h2>
+
+    <div class="legal-content">
+      <!-- ⛔️ متن‌ها رو بعداً اینجا می‌ذاری -->
+      <p>اینجا متن قوانین قرار می‌گیرد...</p>
+    </div>
+
+    <button id="closeLegal">بستن</button>
+  </div>
+</div>
 <div class="chat-container">  
 <div class="chat-header">  
 <button class="theme-btn" id="themeBtn" onclick="toggleTheme()">  
@@ -149,6 +218,11 @@ textarea#textInput{flex:1; resize:none; border:none; outline:none; background:tr
     <span>by Red Boy</span>  
     <img src="https://s6.uupload.ir/files/inshot_20251227_204536460_j5j8.png">  
   </div>  
+  <div class="legal">
+  <span id="openLegal">
+    تمامی اطلاعات ردلایت محفوظ است | قوانین
+  </span>
+</div>
 </div>  
 <script>  
 const messages = [  
@@ -224,7 +298,19 @@ chatForm.onsubmit=async e=>{
  textInput.value="";  
  textInput.style.height='auto';  
 };  
-  
+
+const openLegal = document.getElementById("openLegal");
+const legalModal = document.getElementById("legalModal");
+const closeLegal = document.getElementById("closeLegal");
+
+openLegal.onclick = () => {
+  legalModal.style.display = "flex";
+};
+
+closeLegal.onclick = () => {
+  legalModal.style.display = "none";
+};
+
 </script>  </body>  
 </html>  
 """)
