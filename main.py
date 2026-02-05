@@ -4,6 +4,8 @@ import json, os
 from datetime import datetime
 from github_logger import push_chat_to_github
 from flask import send_from_directory
+from image_gen import generate_image
+import base64
 
 
 app = Flask(__name__, static_folder="static", static_url_path="")  # <- اینجا هم name رو باید __name__ بذاری
@@ -405,6 +407,20 @@ def chat():
     push_chat_to_github(user_msg, ai_reply)
     
     return jsonify({"reply": ai_reply})
+
+@app.route("/image", methods=["POST"])
+def image():
+    prompt = request.json.get("prompt")
+
+    img_bytes = generate_image(prompt)
+    if not img_bytes:
+        return jsonify({"error": "image_failed"}), 500
+
+    img_base64 = base64.b64encode(img_bytes).decode("utf-8")
+
+    return jsonify({
+        "image": f"data:image/png;base64,{img_base64}"
+    })
 
 
 if __name__ == "__main__":
