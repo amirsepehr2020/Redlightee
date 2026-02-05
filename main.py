@@ -410,6 +410,7 @@ chatForm.onsubmit = async e => {
         addMsg("❌ خطا در دریافت پاسخ", "bot");
         console.error(err);
     }
+}
 
     textInput.value = "";
     textInput.style.height = 'auto';
