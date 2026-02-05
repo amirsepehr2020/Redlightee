@@ -342,14 +342,13 @@ function isImagePrompt(text){
   return text.startsWith("/img ");
 }
 
-
 chatForm.onsubmit = async e => {
     e.preventDefault(); // جلوگیری از ری‌لود صفحه
     const text = textInput.value.trim();
     if (!text) return;
 
     // اگه پرامت تصویر هست
-    if (text.startsWith("/img ")) {
+    if (isImagePrompt(text)) {
         addMsg(text, "user");  // نمایش پیام کاربر
 
         const prompt = text.replace("/img ", "");
@@ -385,7 +384,7 @@ chatForm.onsubmit = async e => {
 
         textInput.value = "";
         textInput.style.height = 'auto';
-        return;  // همینجا تموم می‌شه، پیام عادی نمی‌رود
+        return; // پیام عادی ارسال نشه
     }
 
     // پیام معمولی (chat bot)
@@ -411,10 +410,6 @@ chatForm.onsubmit = async e => {
         addMsg("❌ خطا در دریافت پاسخ", "bot");
         console.error(err);
     }
-
-    textInput.value = "";
-    textInput.style.height = 'auto';
-};
 
     textInput.value = "";
     textInput.style.height = 'auto';
