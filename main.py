@@ -259,7 +259,7 @@ textarea#textInput{flex:1; resize:none; border:none; outline:none; background:tr
  <textarea id="textInput" placeholder="Ask Redlighte..." rows="1"></textarea>  
  <button class="send-btn">➤</button>  
 </form>  
-<div class="footer">
+<div><div class="footer">
 
   <div class="release">
     Release 1.9
