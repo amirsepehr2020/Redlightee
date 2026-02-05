@@ -122,7 +122,7 @@ body.dark .input-area{background:#2b2b2b}
 }
 
 .release{
-  font-size:30px;
+  font-size:20px;
 }
 
 .creator{
