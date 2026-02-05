@@ -344,7 +344,7 @@ function isImagePrompt(text){
 
 
 chatForm.onsubmit = async e => {
-    e.preventDefault();
+    e.preventDefault(); // جلوگیری از ری‌لود صفحه
     const text = textInput.value.trim();
     if (!text) return;
 
@@ -356,7 +356,7 @@ chatForm.onsubmit = async e => {
         const typing = document.createElement("div");
         typing.className = "msg bot-msg typing";
         typing.innerHTML = "<span></span><span></span><span></span>";
-        box.appendChild(typing); 
+        box.appendChild(typing);
         box.scrollTop = box.scrollHeight;
 
         try {
@@ -385,7 +385,7 @@ chatForm.onsubmit = async e => {
 
         textInput.value = "";
         textInput.style.height = 'auto';
-        return;  // همینجا تموم می‌شه، دیگه پیام عادی نمی‌ره
+        return;  // همینجا تموم می‌شه، پیام عادی نمی‌رود
     }
 
     // پیام معمولی (chat bot)
@@ -411,7 +411,10 @@ chatForm.onsubmit = async e => {
         addMsg("❌ خطا در دریافت پاسخ", "bot");
         console.error(err);
     }
-}
+
+    textInput.value = "";
+    textInput.style.height = 'auto';
+};
 
     textInput.value = "";
     textInput.style.height = 'auto';
