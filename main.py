@@ -334,7 +334,8 @@ function addMsg(text,type){
  if(type==="bot"){
    lastBot=text;
    vibrateBot();
-}  
+   }
+}
   
 chatForm.onsubmit=async e=>{  
  e.preventDefault();  
