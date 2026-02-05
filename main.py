@@ -341,7 +341,9 @@ function addMsg(text,type){
 function isImagePrompt(text){
   return text.startsWith("/img ");
 }
-  
+
+const chatForm = document.getElementById("chatForm");
+
 chatForm.onsubmit = async e => {
     e.preventDefault();
     const text = textInput.value.trim();
@@ -415,11 +417,7 @@ chatForm.onsubmit = async e => {
     textInput.value = "";
     textInput.style.height = 'auto';
 };
-  
- const typing=document.createElement("div");  
- typing.className="msg bot-msg typing";  
- typing.innerHTML="<span></span><span></span><span></span>";  
- box.appendChild(typing); box.scrollTop=box.scrollHeight;  
+
   
  const res=await fetch("/chat",{method:"POST",headers:{"Content-Type":"application/json"},  
  body:JSON.stringify({message:textInput.value})});  
