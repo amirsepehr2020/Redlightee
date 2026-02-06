@@ -468,15 +468,15 @@ def chat():
 def image():
     prompt = request.json.get("prompt")
 
-    img_bytes = generate_image(prompt)
-    if not img_bytes:
+    if not prompt:
+        return jsonify({"error": "no_prompt"}), 400
+
+    image_data = generate_image(prompt)
+
+    if not image_data:
         return jsonify({"error": "image_failed"}), 500
 
-    img_base64 = base64.b64encode(img_bytes).decode("utf-8")
-
-    return jsonify({
-        "image": f"data:image/png;base64,{img_base64}"
-    })
+    return jsonify({"image": image_data})
 
 
 if __name__ == "__main__":
