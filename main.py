@@ -272,6 +272,40 @@ textarea#textInput{flex:1; resize:none; border:none; outline:none; background:tr
     opacity: 1;
   }
 }
+@keyframes modeSelect {
+  0% {
+    transform: scale(1);
+  }
+  40% {
+    transform: scale(1.15);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.mode-item.active {
+  animation: modeSelect 0.35s ease;
+  background: linear-gradient(135deg, #ff0000, #ff4d4d);
+  box-shadow: 0 0 18px rgba(255, 0, 0, 0.9);
+}
+
+@keyframes spaceClose {
+  0% {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+    filter: blur(0);
+  }
+  100% {
+    transform: translateY(10px) scale(0.7);
+    opacity: 0;
+    filter: blur(6px);
+  }
+}
+
+.mode-panel.closing {
+  animation: spaceClose 0.35s ease forwards;
+}
 
 
 </style>  </head>  <body>  
@@ -377,7 +411,6 @@ setInterval(sendRandomNotification, 1000 * 60 * 60);
 // اگر خواستی برای تست سریع، میتونی زمانو کم کنی:
 // setInterval(sendRandomNotification, 5000); // هر ۵ ثانیه برای تست
 </script>
-
 <script>
 const box = document.getElementById("chatBox");
 const textInput = document.getElementById("textInput");
@@ -418,13 +451,30 @@ function addMsg(text, type){
     }
 }
 
-/* ========= مرحله ۳: باز و بسته شدن پنل مود ========= */
+/* ========= مرحله ۳ (ارتقا یافته): پنل مود با انیمیشن ========= */
 modeBtn.onclick = (e) => {
     e.preventDefault();
-    modePanel.classList.toggle("show");
+
+    // اگر بازه → ببند با انیمیشن
+    if (modePanel.classList.contains("show")) {
+        closeModePanel();
+    } 
+    // اگر بسته‌ست → باز کن
+    else {
+        modePanel.classList.remove("closing");
+        modePanel.classList.add("show");
+    }
 };
 
-/* ========= مرحله ۴: انتخاب مود ========= */
+function closeModePanel() {
+    modePanel.classList.add("closing");
+
+    setTimeout(() => {
+        modePanel.classList.remove("show", "closing");
+    }, 350);
+}
+
+/* ========= مرحله ۴: انتخاب مود (بدون تغییر منطق) ========= */
 modeItems.forEach(item => {
     item.onclick = () => {
         currentMode = item.dataset.mode;
@@ -435,8 +485,16 @@ modeItems.forEach(item => {
             textInput.placeholder = "Ask Redlighte...";
         }
 
-        modePanel.classList.remove("show");
+        // افکت انتخاب
+        modeItems.forEach(i => i.classList.remove("active"));
+        item.classList.add("active");
+
         vibrateBot();
+
+        // بستن پنل با انیمیشن فضایی
+        setTimeout(() => {
+            closeModePanel();
+        }, 250);
     };
 });
 
