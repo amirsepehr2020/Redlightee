@@ -372,7 +372,7 @@ textarea#textInput{flex:1; resize:none; border:none; outline:none; background:tr
 <div class="footer">
 
   <div class="release">
-    Release 1.9
+    Release 2.0
   </div>
 
   <div class="creator">
