@@ -232,25 +232,29 @@ textarea#textInput{flex:1; resize:none; border:none; outline:none; background:tr
 .mode-panel {
   position: absolute;
   bottom: 48px;
-  right: 0;
+  left: 0;
   background: rgba(20,20,20,0.95);
-  border-radius: 18px;
+  border-radius: 20px;
   padding: 10px;
   display: none;
-  flex-direction: column;
-  gap: 8px;
-  animation: fadeUp 0.3s ease;
+  flex-direction: row;      /* ⬅️ افقی */
+  gap: 10px;
+  min-width: 220px;         /* ⬅️ پهن */
+  justify-content: center;
+  animation: fadeUp 0.25s ease;
 }
+
 
 .mode-panel.show {
   display: flex;
 }
 
 .mode-item {
-  padding: 10px 14px;
+  padding: 10px 16px;
   border-radius: 14px;
   cursor: pointer;
   color: white;
+  white-space: nowrap;
   transition: 0.2s;
 }
 
@@ -315,17 +319,18 @@ textarea#textInput{flex:1; resize:none; border:none; outline:none; background:tr
 <img src="https://s6.uupload.ir/files/inshot_20251225_164915200_i1sr.png">  
 <h1>Redlighte chat</h1>  
 </div>  <div class="chat-box" id="chatBox"></div>  <form class="input-area" id="chatForm">  
- <textarea id="textInput" placeholder="Ask Redlighte..." rows="1"></textarea>  
- <button class="send-btn">➤</button>  
-
 <div class="mode-wrapper">
-  <button id="modeBtn" class="mode-btn">^</button>
+  <button id="modeBtn" class="mode-btn">🎛️</button>
 
   <div id="modePanel" class="mode-panel">
     <div class="mode-item" data-mode="chat">💬 گپ و گفت</div>
     <div class="mode-item" data-mode="image">🖼 تصویرسازی</div>
   </div>
 </div>
+ 
+ <textarea id="textInput" placeholder="Ask Redlighte..." rows="1"></textarea>  
+ <button class="send-btn">➤</button>  
+
 
 </form>  
 </div>
