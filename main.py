@@ -213,6 +213,63 @@ textarea#textInput{flex:1; resize:none; border:none; outline:none; background:tr
   font-weight:bold;
   cursor:pointer;
 }
+
+.mode-wrapper {
+  position: relative;
+}
+
+.mode-btn {
+  background: #111;
+  color: #fff;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  font-size: 18px;
+  cursor: pointer;
+  border: none;
+}
+
+.mode-panel {
+  position: absolute;
+  bottom: 48px;
+  right: 0;
+  background: rgba(20,20,20,0.95);
+  border-radius: 18px;
+  padding: 10px;
+  display: none;
+  flex-direction: column;
+  gap: 8px;
+  animation: fadeUp 0.3s ease;
+}
+
+.mode-panel.show {
+  display: flex;
+}
+
+.mode-item {
+  padding: 10px 14px;
+  border-radius: 14px;
+  cursor: pointer;
+  color: white;
+  transition: 0.2s;
+}
+
+.mode-item:hover {
+  background: #ff3d3d;
+}
+
+@keyframes fadeUp {
+  from {
+    transform: translateY(10px) scale(0.95);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}
+
+
 </style>  </head>  <body>  
 <div class="legal-modal" id="legalModal">
   <div class="legal-box">
@@ -260,6 +317,16 @@ textarea#textInput{flex:1; resize:none; border:none; outline:none; background:tr
 </div>  <div class="chat-box" id="chatBox"></div>  <form class="input-area" id="chatForm">  
  <textarea id="textInput" placeholder="Ask Redlighte..." rows="1"></textarea>  
  <button class="send-btn">➤</button>  
+
+<div class="mode-wrapper">
+  <button id="modeBtn" class="mode-btn">^</button>
+
+  <div id="modePanel" class="mode-panel">
+    <div class="mode-item" data-mode="chat">💬 گپ و گفت</div>
+    <div class="mode-item" data-mode="image">🖼 تصویرسازی</div>
+  </div>
+</div>
+
 </form>  
 </div>
 
