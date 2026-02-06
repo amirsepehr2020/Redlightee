@@ -305,146 +305,135 @@ setInterval(sendRandomNotification, 1000 * 60 * 60);
 // اگر خواستی برای تست سریع، میتونی زمانو کم کنی:
 // setInterval(sendRandomNotification, 5000); // هر ۵ ثانیه برای تست
 </script>
-
 <script>  
-const box=document.getElementById("chatBox");  
-const textInput=document.getElementById("textInput");  
-const themeBtn=document.getElementById("themeBtn");  
-const themeText=document.getElementById("themeText");  
-let lastUser="", lastBot="";  
-  
+const box = document.getElementById("chatBox");  
+const textInput = document.getElementById("textInput");  
+const themeBtn = document.getElementById("themeBtn");  
+const themeText = document.getElementById("themeText");  
+let lastUser = "", lastBot = "";  
+
 function toggleTheme(){  
- themeBtn.classList.remove("animate");  
- void themeBtn.offsetWidth;  
- themeBtn.classList.add("animate");  
- document.body.classList.toggle("dark");  
- themeText.innerText=document.body.classList.contains("dark")?"دارک مود":"لایت مود";  
- themeText.style.color=document.body.classList.contains("dark")?"#fff":"#000";  
+    themeBtn.classList.remove("animate");  
+    void themeBtn.offsetWidth;  
+    themeBtn.classList.add("animate");  
+    document.body.classList.toggle("dark");  
+    themeText.innerText = document.body.classList.contains("dark") ? "دارک مود" : "لایت مود";  
+    themeText.style.color = document.body.classList.contains("dark") ? "#fff" : "#000";  
 }  
-  
+
 textInput.addEventListener('input', ()=>{  
- textInput.style.height='auto';  
- textInput.style.height=textInput.scrollHeight+'px';  
+    textInput.style.height = 'auto';  
+    textInput.style.height = textInput.scrollHeight + 'px';  
 });  
-  
-function addMsg(text,type){  
- const d=document.createElement("div");  
- d.className="msg "+(type==="user"?"user-msg":"bot-msg");  
- d.innerHTML=`<div>${text}</div><div class="time">${new Date().toLocaleTimeString().slice(0,5)}</div>`;  
- box.appendChild(d); box.scrollTop=box.scrollHeight;  
- if(type==="user") lastUser=text;  
- if(type==="bot"){
-   lastBot=text;
-   vibrateBot();
-   }
-}
-function isImagePrompt(text){
-  return text.startsWith("/img ");
-}
 
-chatForm.onsubmit = async e => {
-    e.preventDefault(); // جلوگیری از ری‌لود صفحه
-    const text = textInput.value.trim();
-    if (!text) return;
+function addMsg(text, type){  
+    const d = document.createElement("div");  
+    d.className = "msg " + (type === "user" ? "user-msg" : "bot-msg");  
+    d.innerHTML = `<div>${text}</div><div class="time">${new Date().toLocaleTimeString().slice(0,5)}</div>`;  
+    box.appendChild(d);  
+    box.scrollTop = box.scrollHeight;  
+    if(type === "user") lastUser = text;  
+    if(type === "bot"){  
+        lastBot = text;  
+        vibrateBot();  
+    }  
+}  
 
-    // اگه پرامت تصویر هست
-    if (isImagePrompt(text)) {
-        addMsg(text, "user");  // نمایش پیام کاربر
+function isImagePrompt(text){  
+    return text.startsWith("/img ");  
+}  
 
-        const prompt = text.replace("/img ", "");
-        const typing = document.createElement("div");
-        typing.className = "msg bot-msg typing";
-        typing.innerHTML = "<span></span><span></span><span></span>";
-        box.appendChild(typing);
-        box.scrollTop = box.scrollHeight;
+chatForm.onsubmit = async e => {  
+    e.preventDefault();  
+    const text = textInput.value.trim();  
+    if (!text) return;  
 
-        try {
-            const res = await fetch("/image", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ prompt })
-            });
-            const data = await res.json();
-            typing.remove();
+    // اگه پرامت تصویر هست  
+    if (isImagePrompt(text)) {  
+        addMsg(text, "user");  
 
-            if (data.image) {
-                const imgMsg = document.createElement("div");
-                imgMsg.className = "msg bot-msg";
-                imgMsg.innerHTML = `<img src="${data.image}" style="max-width:100%;border-radius:14px;">`;
-                box.appendChild(imgMsg);
-                box.scrollTop = box.scrollHeight;
-            } else {
-                addMsg("❌ خطا در ساخت تصویر", "bot");
-            }
-        } catch (err) {
-            typing.remove();
-            addMsg("❌ خطا در ساخت تصویر", "bot");
-            console.error(err);
-        }
+        const prompt = text.replace("/img ", "");  
+        const typing = document.createElement("div");  
+        typing.className = "msg bot-msg typing";  
+        typing.innerHTML = "<span></span><span></span><span></span>";  
+        box.appendChild(typing);  
+        box.scrollTop = box.scrollHeight;  
 
-        textInput.value = "";
-        textInput.style.height = 'auto';
-        return; // پیام عادی ارسال نشه
-    }
+        try {  
+            const res = await fetch("/image", {  
+                method: "POST",  
+                headers: { "Content-Type": "application/json" },  
+                body: JSON.stringify({ prompt })  
+            });  
+            const data = await res.json();  
+            typing.remove();  
 
-    // پیام معمولی (chat bot)
-    addMsg(text, "user");
+            if (data.image) {  
+                const imgMsg = document.createElement("div");  
+                imgMsg.className = "msg bot-msg";  
+                imgMsg.innerHTML = `<img src="${data.image}" style="max-width:100%;border-radius:14px;">`;  
+                box.appendChild(imgMsg);  
+                box.scrollTop = box.scrollHeight;  
+            } else {  
+                addMsg("❌ خطا در ساخت تصویر", "bot");  
+            }  
+        } catch (err) {  
+            typing.remove();  
+            addMsg("❌ خطا در ساخت تصویر", "bot");  
+            console.error(err);  
+        }  
 
-    const typing = document.createElement("div");
-    typing.className = "msg bot-msg typing";
-    typing.innerHTML = "<span></span><span></span><span></span>";
-    box.appendChild(typing);
-    box.scrollTop = box.scrollHeight;
+        textInput.value = "";  
+        textInput.style.height = 'auto';  
+        return;  
+    }  
 
-    try {
-        const res = await fetch("/chat", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ message: text })
-        });
-        const data = await res.json();
-        typing.remove();
-        addMsg(data.reply, "bot");
-    } catch (err) {
-        typing.remove();
-        addMsg("❌ خطا در دریافت پاسخ", "bot");
-        console.error(err);
-    }
+    // پیام معمولی (chat bot)  
+    addMsg(text, "user");  
 
-    textInput.value = "";
-    textInput.style.height = 'auto';
-};
+    const typing = document.createElement("div");  
+    typing.className = "msg bot-msg typing";  
+    typing.innerHTML = "<span></span><span></span><span></span>";  
+    box.appendChild(typing);  
+    box.scrollTop = box.scrollHeight;  
 
-  
- const res=await fetch("/chat",{method:"POST",headers:{"Content-Type":"application/json"},  
- body:JSON.stringify({message:textInput.value})});  
- const data=await res.json();  
-  
- typing.remove();  
- addMsg(data.reply,"bot");  
- textInput.value="";  
- textInput.style.height='auto';  
+    try {  
+        const res = await fetch("/chat", {  
+            method: "POST",  
+            headers: { "Content-Type": "application/json" },  
+            body: JSON.stringify({ message: text })  
+        });  
+        const data = await res.json();  
+        typing.remove();  
+        addMsg(data.reply, "bot");  
+    } catch (err) {  
+        typing.remove();  
+        addMsg("❌ خطا در دریافت پاسخ", "bot");  
+        console.error(err);  
+    }  
+
+    textInput.value = "";  
+    textInput.style.height = 'auto';  
 };  
 
-const openLegal = document.getElementById("openLegal");
-const legalModal = document.getElementById("legalModal");
-const closeLegal = document.getElementById("closeLegal");
+const openLegal = document.getElementById("openLegal");  
+const legalModal = document.getElementById("legalModal");  
+const closeLegal = document.getElementById("closeLegal");  
 
-openLegal.onclick = () => {
-  legalModal.style.display = "flex";
-};
+openLegal.onclick = () => {  
+    legalModal.style.display = "flex";  
+};  
 
-closeLegal.onclick = () => {
-  legalModal.style.display = "none";
-};
+closeLegal.onclick = () => {  
+    legalModal.style.display = "none";  
+};  
 
-function vibrateBot(){
-  if (navigator.vibrate) {
-    navigator.vibrate([30, 40, 30]); // 20 میلی‌ثانیه، خیلی ظریف
-  }
-}
-
-</script>  </body>  
+function vibrateBot(){  
+    if (navigator.vibrate) {  
+        navigator.vibrate([30, 40, 30]);  
+    }  
+}  
+</script></body>  
 </html>  
 """)
 
