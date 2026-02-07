@@ -306,6 +306,15 @@ textarea#textInput{flex:1; resize:none; border:none; outline:none; background:tr
 .mode-panel.closing {
   animation: spaceClose 0.35s ease forwards;
 }
+@keyframes spaceSend {
+  0% { transform: scale(1) rotate(0deg); box-shadow: 0 0 6px #ff0000; }
+  50% { transform: scale(1.3) rotate(15deg); box-shadow: 0 0 20px #ff4d4d, 0 0 40px #ff1a1a; }
+  100% { transform: scale(1) rotate(-5deg); box-shadow: 0 0 6px #ff0000; }
+}
+
+.send-btn.space-animate {
+  animation: spaceSend 0.6s ease-in-out;
+}
 
 
 </style>  </head>  <body>  
@@ -411,6 +420,7 @@ setInterval(sendRandomNotification, 1000 * 60 * 60);
 // اگر خواستی برای تست سریع، میتونی زمانو کم کنی:
 // setInterval(sendRandomNotification, 5000); // هر ۵ ثانیه برای تست
 </script>
+
 <script>
 const box = document.getElementById("chatBox");
 const textInput = document.getElementById("textInput");
@@ -420,6 +430,8 @@ const themeText = document.getElementById("themeText");
 const modeBtn = document.getElementById("modeBtn");
 const modePanel = document.getElementById("modePanel");
 const modeItems = document.querySelectorAll(".mode-item");
+
+const sendBtn = document.getElementById("sendBtn"); // ✨ اضافه شد
 
 let lastUser = "", lastBot = "";
 let currentMode = "chat"; // chat | image
@@ -455,12 +467,9 @@ function addMsg(text, type){
 modeBtn.onclick = (e) => {
     e.preventDefault();
 
-    // اگر بازه → ببند با انیمیشن
     if (modePanel.classList.contains("show")) {
         closeModePanel();
-    } 
-    // اگر بسته‌ست → باز کن
-    else {
+    } else {
         modePanel.classList.remove("closing");
         modePanel.classList.add("show");
     }
@@ -474,7 +483,7 @@ function closeModePanel() {
     }, 350);
 }
 
-/* ========= مرحله ۴: انتخاب مود (بدون تغییر منطق) ========= */
+/* ========= مرحله ۴: انتخاب مود ========= */
 modeItems.forEach(item => {
     item.onclick = () => {
         currentMode = item.dataset.mode;
@@ -485,13 +494,11 @@ modeItems.forEach(item => {
             textInput.placeholder = "Ask Redlighte...";
         }
 
-        // افکت انتخاب
         modeItems.forEach(i => i.classList.remove("active"));
         item.classList.add("active");
 
         vibrateBot();
 
-        // بستن پنل با انیمیشن فضایی
         setTimeout(() => {
             closeModePanel();
         }, 250);
@@ -503,6 +510,13 @@ chatForm.onsubmit = async e => {
     e.preventDefault();
     const text = textInput.value.trim();
     if (!text) return;
+
+    // ✨ انیمیشن فضایی دکمه
+    if (sendBtn) {
+        sendBtn.classList.remove("space-animate");
+        void sendBtn.offsetWidth;
+        sendBtn.classList.add("space-animate");
+    }
 
     addMsg(text, "user");
 
