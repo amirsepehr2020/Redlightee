@@ -587,6 +587,12 @@ function vibrateBot(){
         navigator.vibrate([30, 40, 30]);
     }
 }
+function animateSend(){
+  sendBtn.style.transform = "scale(0.8)";
+  setTimeout(()=>{
+    sendBtn.style.transform = "scale(1)";
+  },120);
+}
 </script></body>  
 </html>  
 """)
