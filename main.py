@@ -372,7 +372,7 @@ textarea#textInput{flex:1; resize:none; border:none; outline:none; background:tr
 </div>
  
  <textarea id="textInput" placeholder="Ask Redlighte..." rows="1"></textarea>  
- <button class="send-btn">➤</button>  
+ <button id="sendBtn" class="send-btn">➤</button>  
 
 
 </form>  
