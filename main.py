@@ -317,7 +317,8 @@ textarea#textInput{flex:1; resize:none; border:none; outline:none; background:tr
 }
 
 
-</style>  </head>  <body>  
+</style>  </head>  
+<body class="dark"‌>  
 <div class="legal-modal" id="legalModal">
   <div class="legal-box">
     <h2>قوانین و حریم خصوصی ردلایت</h2>
