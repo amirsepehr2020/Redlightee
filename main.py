@@ -442,7 +442,7 @@ function toggleTheme(){
     void themeBtn.offsetWidth;
     themeBtn.classList.add("animate");
     document.body.classList.toggle("dark");
-    themeText.innerText = document.body.classList.contains("dark") ? "دارک مود" : "لایت مود";
+    themeText.innerText = document.body.classList.contains("dark") ? " لایت مود" : "دارک مود";
     themeText.style.color = document.body.classList.contains("dark") ? "#fff" : "#000";
 }
 
