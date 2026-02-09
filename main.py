@@ -358,7 +358,7 @@ textarea#textInput{flex:1; resize:none; border:none; outline:none; background:tr
 <div class="chat-header">  
 <button class="theme-btn" id="themeBtn" onclick="toggleTheme()">  
  <span class="icon">🌓</span>  
- <span class="text" id="themeText">لایت مود</span>  
+ <span class="text" id="themeText">دارک مود</span>  
 </button>  
 <img src="https://s6.uupload.ir/files/inshot_20251225_164915200_i1sr.png">  
 <h1>Redlighte chat</h1>  
