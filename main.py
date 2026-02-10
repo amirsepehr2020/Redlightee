@@ -315,10 +315,46 @@ textarea#textInput{flex:1; resize:none; border:none; outline:none; background:tr
 .send-btn.space-animate {
   animation: spaceSend 0.6s ease-in-out;
 }
+#splash{
+  position:fixed;
+  inset:0;
+  background:linear-gradient(45deg,#8b0000,#ff0000);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  z-index:9999;
+  animation: fadeOut 1s ease forwards;
+  animation-delay:2.2s;
+}
+
+#splash img{
+  width:120px;
+  margin-bottom:10px;
+  animation: popIn 0.6s ease;
+}
+
+#splash h2{
+  color:white;
+  font-size:24px;
+}
+
+@keyframes popIn{
+  from{transform:scale(.7);opacity:0}
+  to{transform:scale(1);opacity:1}
+}
+
+@keyframes fadeOut{
+  to{opacity:0;visibility:hidden}
+}
 
 
 </style>  </head>  
 <body class="dark"‌>  
+<div id="splash">
+  <img src="https://s6.uupload.ir/files/inshot_20251225_164915200_i1sr.png">
+  <h2>Redlighte</h2>
+</div>
 <div class="legal-modal" id="legalModal">
   <div class="legal-box">
     <h2>قوانین و حریم خصوصی ردلایت</h2>
@@ -594,6 +630,13 @@ function animateSend(){
     sendBtn.style.transform = "scale(1)";
   },120);
 }
+window.addEventListener("load",()=>{
+  setTimeout(()=>{
+    const splash=document.getElementById("splash");
+    if(splash) splash.remove();
+  },3000);
+});
+
 </script></body>  
 </html>  
 """)
