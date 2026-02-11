@@ -348,6 +348,9 @@ textarea#textInput{flex:1; resize:none; border:none; outline:none; background:tr
   to{opacity:0;visibility:hidden}
 }
 
+#clearBtn{
+  right:70px;
+}
 
 </style>  </head>  
 <body class="dark"‌>  
@@ -395,8 +398,7 @@ textarea#textInput{flex:1; resize:none; border:none; outline:none; background:tr
 <button class="theme-btn" id="themeBtn" onclick="toggleTheme()">  
  <span class="icon">🌓</span>  
  <span class="text" id="themeText">دارک مود</span>  
-</button>  
-<button class="theme-btn" onclick="clearChat()">
+<button class="theme-btn" id="clearBtn" onclick="clearChat()">
  <span class="icon">🗑</span>
  <span class="text">پاک کردن</span>
 </button>
