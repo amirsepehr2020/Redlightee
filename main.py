@@ -636,6 +636,11 @@ window.addEventListener("load",()=>{
     if(splash) splash.remove();
   },3000);
 });
+window.addEventListener("load",()=>{
+  setTimeout(()=>{
+    addMsg("سلام 👋 من ردلایتم، بپرس تا کمکت کنم.", "bot");
+  }, 3200); // بعد از اسپلش
+});
 
 </script></body>  
 </html>  
