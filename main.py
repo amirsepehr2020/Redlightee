@@ -396,6 +396,10 @@ textarea#textInput{flex:1; resize:none; border:none; outline:none; background:tr
  <span class="icon">🌓</span>  
  <span class="text" id="themeText">دارک مود</span>  
 </button>  
+<button class="theme-btn" onclick="clearChat()">
+ <span class="icon">🗑</span>
+ <span class="text">پاک کردن</span>
+</button>
 <img src="https://s6.uupload.ir/files/inshot_20251225_164915200_i1sr.png">  
 <h1>Redlighte chat</h1>  
 </div>  <div class="chat-box" id="chatBox"></div>  <form class="input-area" id="chatForm">  
@@ -629,6 +633,11 @@ function animateSend(){
   setTimeout(()=>{
     sendBtn.style.transform = "scale(1)";
   },120);
+}
+function clearChat(){
+  if(confirm("همه پیام‌ها پاک شوند؟")){
+    box.innerHTML = "";
+  }
 }
 window.addEventListener("load",()=>{
   setTimeout(()=>{
