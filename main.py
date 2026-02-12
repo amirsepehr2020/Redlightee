@@ -543,7 +543,7 @@ textarea#textInput{flex:1; resize:none; border:none; outline:none; background:tr
 
     <p>برای ارتباط روی ایمیل زیر بزن:</p>
 
-    <a id="supportEmail" href="#">support@email.com</a>
+    <a id="supportEmail" href="#">sredlighte@gmail.com</a>
 
     <button id="closeSupport">بستن</button>
   </div>
@@ -652,7 +652,7 @@ const logo = document.querySelector(".logo");
 const openSupport = document.getElementById("openSupport");
 const supportModal = document.getElementById("supportModal");
 const closeSupport = document.getElementById("closeSupport");
-const email = "SUPPORT@REDLIGHTE.IR";   // ایمیل واقعی رو بده بذارم
+const email = "sredlighte@gmail.com";   // ایمیل واقعی رو بده بذارم
 
 const device = navigator.userAgent;
 const lang = navigator.language;
