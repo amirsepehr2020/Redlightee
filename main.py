@@ -88,8 +88,16 @@ body{margin:0;height:100vh;display:flex;flex-direction:column;align-items:center
  70%{transform:translateY(-5px) scale(0.95) rotate(-2deg);}  
  100%{opacity:1; transform:translateY(0px) scale(1) rotate(0deg);}  
 }  
-  
-.theme-btn{position:absolute;right:12px;top:10px;background:none;border:none;cursor:pointer;display:flex;flex-direction:column;align-items:center;}  
+
+.theme-btn{
+background:none;
+border:none;
+cursor:pointer;
+display:flex;
+flex-direction:column;
+align-items:center;
+}
+
 .theme-btn.animate .icon{animation:spin 0.6s ease;}  
 @keyframes spin{to{transform:rotate(360deg)}}  
 .theme-btn.animate .text{animation:popText .6s ease;}  
@@ -414,6 +422,7 @@ textarea#textInput{flex:1; resize:none; border:none; outline:none; background:tr
     </div>
 
     <button id="closeLegal">بستن</button>
+    </div>
   </div>
   <div class="chat-header">
 
