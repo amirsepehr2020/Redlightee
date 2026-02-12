@@ -386,10 +386,6 @@ textarea#textInput{flex:1; resize:none; border:none; outline:none; background:tr
   gap:8px;
 }
 
-/* حالت عادی */
-.logo{
-  transition: all .3s ease;
-}
 
 /* وقتی پیام جدید میاد */
 .logo.flash{
