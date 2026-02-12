@@ -436,7 +436,7 @@ textarea#textInput{flex:1; resize:none; border:none; outline:none; background:tr
 
 .support span{
   cursor:pointer;
-  color:#00ff88;
+  color:#aaa;
   font-weight:bold;
   font-size:14px;
   text-shadow:0 0 8px rgba(0,255,120,.7);
@@ -533,6 +533,10 @@ textarea#textInput{flex:1; resize:none; border:none; outline:none; background:tr
 سپاس از انتخاب شما
 -تیم توسعه دهندگی سحاب قرمز (Red Boy)</p>
     </div>
+
+    <button id="closeLegal">بستن</button>
+    </div>
+  </div>
 <div class="support-modal" id="supportModal">
   <div class="support-box">
     <h2>پشتیبانی ردلایت</h2>
@@ -545,9 +549,6 @@ textarea#textInput{flex:1; resize:none; border:none; outline:none; background:tr
   </div>
 </div>
 
-    <button id="closeLegal">بستن</button>
-    </div>
-  </div>
   <div class="chat-container"> 
   <div class="chat-header">
 
