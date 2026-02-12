@@ -477,7 +477,7 @@ textarea#textInput{flex:1; resize:none; border:none; outline:none; background:tr
   <div class="header-left">
     <img class="logo"
     src="https://s6.uupload.ir/files/inshot_20251225_164915200_i1sr.png">  
-    <h1>Redlighte ردلایت</h1>
+    <h1>Redlighte a persian AI</h1>
   </div>
 
   <div class="header-right">
