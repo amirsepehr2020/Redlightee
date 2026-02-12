@@ -492,6 +492,10 @@ textarea#textInput{flex:1; resize:none; border:none; outline:none; background:tr
   cursor:pointer;
 }
 
+.support-box p{
+  color:#fff;
+}
+
 </style>  </head>  
 <body class="dark"‌>  
 <div id="splash">
