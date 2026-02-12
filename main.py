@@ -67,8 +67,9 @@ body{margin:0;height:100vh;display:flex;flex-direction:column;align-items:center
 }
 
   /* سایز لوگو برای ردیفی شدن */
-.chat-header img{
-  height:42px;
+.chat-header img.logo{
+  width:60px !important;
+  height:60px !important;
 }
 
 @keyframes logoPulse{0%{filter:drop-shadow(0 0 8px rgba(255,0,0,.4))}50%{filter:drop-shadow(0 0 22px rgba(255,0,0,1))}100%{filter:drop-shadow(0 0 8px rgba(255,0,0,.4))}}  
@@ -383,11 +384,6 @@ textarea#textInput{flex:1; resize:none; border:none; outline:none; background:tr
   gap:8px;
 }
 
-.logo{
-  width:60px;   /* اندازه دلخواه */
-  height:48px;
-  object-fit:contain;
-}
 
 </style>  </head>  
 <body class="dark"‌>  
