@@ -60,19 +60,28 @@ body{margin:0;height:100vh;display:flex;flex-direction:column;align-items:center
  box-shadow:0 10px 30px rgba(0,0,0,.35);  
  display:flex;flex-direction:column;overflow:hidden;}  
   
-.chat-header{text-align:center;padding:6px 0;border-bottom:1px solid rgba(0,0,0,.15);position:relative;}  
-  
-.chat-header img{height:150px;margin-bottom:4px;  
- animation:logoPulse 2.6s infinite ease-in-out;  
- filter:drop-shadow(0 0 10px rgba(255,0,0,.6)) drop-shadow(0 0 30px rgba(255,0,0,.9));}  
+.chat-header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+
+  /* سایز لوگو برای ردیفی شدن */
+.chat-header img{
+  height:42px;
+}
+
 @keyframes logoPulse{0%{filter:drop-shadow(0 0 8px rgba(255,0,0,.4))}50%{filter:drop-shadow(0 0 22px rgba(255,0,0,1))}100%{filter:drop-shadow(0 0 8px rgba(255,0,0,.4))}}  
-  
-.chat-header h1{  
- margin:0;font-size:36px;color:var(--text);  
- opacity:0; transform:translateY(-50px) scale(0.5) rotate(-15deg);  
- animation:titleAppear 2s ease forwards;  
- font-family: 'Pacifico', cursive;  
-}  
+
+/* کوچیک‌تر شدن عنوان که تو یک خط جا بشه */
+.chat-header h1{
+  font-size:18px;
+  margin:0;
+  animation:none;
+  transform:none;
+  opacity:1;
+}
+
 @keyframes titleAppear{  
  0%{opacity:0; transform:translateY(-50px) scale(0.5) rotate(-15deg);}  
  50%{opacity:1; transform:translateY(10px) scale(1.2) rotate(5deg);}  
@@ -352,6 +361,20 @@ textarea#textInput{flex:1; resize:none; border:none; outline:none; background:tr
   right:70px;
 }
 
+/* بخش لوگو و اسم */
+.header-left{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+/* دکمه‌ها */
+.header-right{
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+
 </style>  </head>  
 <body class="dark"‌>  
 <div id="splash">
@@ -392,19 +415,27 @@ textarea#textInput{flex:1; resize:none; border:none; outline:none; background:tr
 
     <button id="closeLegal">بستن</button>
   </div>
+  <div class="chat-header">
+
+  <div class="header-left">
+    <img src="https://s6.uupload.ir/files/inshot_20251225_164915200_i1sr.png">  
+    <h1>Redlighte chat</h1>
+  </div>
+
+  <div class="header-right">
+    <button class="theme-btn" id="clearBtn" onclick="clearChat()">
+      <span class="icon">🗑</span>
+      <span class="text">پاک کردن</span>
+    </button>
+
+    <button class="theme-btn" id="themeBtn" onclick="toggleTheme()">  
+      <span class="icon">🌓</span>  
+      <span class="text" id="themeText">دارک مود</span>
+    </button>
+  </div>
+
 </div>
-<div class="chat-container">  
-<div class="chat-header">  
-<button class="theme-btn" id="themeBtn" onclick="toggleTheme()">  
- <span class="icon">🌓</span>  
- <span class="text" id="themeText">دارک مود</span>  
-<button class="theme-btn" id="clearBtn" onclick="clearChat()">
- <span class="icon">🗑</span>
- <span class="text">پاک کردن</span>
-</button>
-<img src="https://s6.uupload.ir/files/inshot_20251225_164915200_i1sr.png">  
-<h1>Redlighte chat</h1>  
-</div>  <div class="chat-box" id="chatBox"></div>  <form class="input-area" id="chatForm">  
+<div class="chat-box" id="chatBox"></div>  <form class="input-area" id="chatForm">  
 <div class="mode-wrapper">
   <button id="modeBtn" class="mode-btn">🎛️</button>
 
