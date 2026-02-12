@@ -386,27 +386,22 @@ textarea#textInput{flex:1; resize:none; border:none; outline:none; background:tr
   gap:8px;
 }
 
-
-/* وقتی پیام جدید میاد */
 .logo.flash{
-  animation: logoFlash .6s ease;
+  animation: redGlowPulse 1.6s infinite alternate, logoFlash .6s ease;
 }
 
 @keyframes logoFlash{
-  0%{filter: drop-shadow(0 0 5px #fff);}
-  50%{filter: drop-shadow(0 0 25px #ff0000) brightness(1.4);}
-  100%{filter: drop-shadow(0 0 5px #fff);}
+  50%{ transform: scale(1.12); }
 }
 
-/* وقتی در حال تایپه */
 .logo.typing{
-  animation: logoTyping .9s infinite;
+  animation: redGlowPulse 1.6s infinite alternate, logoTyping .9s infinite;
 }
 
 @keyframes logoTyping{
-  0%{transform: scale(1);}
-  50%{transform: scale(1.12);}
-  100%{transform: scale(1);}
+  0%{transform:scale(1);}
+  50%{transform:scale(1.08);}
+  100%{transform:scale(1);}
 }
 
 /* وقتی تصویر میسازه */
@@ -414,28 +409,24 @@ textarea#textInput{flex:1; resize:none; border:none; outline:none; background:tr
   filter: hue-rotate(280deg) drop-shadow(0 0 18px #9b00ff);
 }
 
-/* گلو قرمز با پالس */
 .logo{
   animation: redGlowPulse 1.6s infinite alternate;
 }
 
 @keyframes redGlowPulse{
   from{
-    filter: drop-shadow(0 0 4px #ff2a2a)
-            drop-shadow(0 0 8px #ff2a2a)
+    filter: drop-shadow(0 0 6px #ff2a2a)
             drop-shadow(0 0 12px #ff0000);
   }
   to{
-    filter: drop-shadow(0 0 10px #ff2a2a)
-            drop-shadow(0 0 18px #ff2a2a)
-            drop-shadow(0 0 28px #ff0000);
+    filter: drop-shadow(0 0 14px #ff2a2a)
+            drop-shadow(0 0 30px #ff0000);
   }
 }
 
-/* وقتی مود تصویرسازی فعاله → انیمیشن قرمز خاموش */
 .logo.image-mode{
-  animation: none;
-  filter: none;
+  animation: none !important;
+  filter: hue-rotate(280deg) drop-shadow(0 0 18px #9b00ff);
 }
 
 
