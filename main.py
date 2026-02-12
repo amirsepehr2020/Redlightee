@@ -373,7 +373,7 @@ textarea#textInput{flex:1; resize:none; border:none; outline:none; background:tr
 .header-left{
   display:flex;
   align-items:center;
-  gap:10px;
+  gap:20px;
 }
 
 /* دکمه‌ها */
@@ -384,7 +384,7 @@ textarea#textInput{flex:1; resize:none; border:none; outline:none; background:tr
 }
 
 .logo{
-  width:48px;   /* اندازه دلخواه */
+  width:60px;   /* اندازه دلخواه */
   height:48px;
   object-fit:contain;
 }
