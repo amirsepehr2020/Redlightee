@@ -383,6 +383,12 @@ textarea#textInput{flex:1; resize:none; border:none; outline:none; background:tr
   gap:8px;
 }
 
+.logo{
+  width:48px;   /* اندازه دلخواه */
+  height:48px;
+  object-fit:contain;
+}
+
 </style>  </head>  
 <body class="dark"‌>  
 <div id="splash">
@@ -428,7 +434,8 @@ textarea#textInput{flex:1; resize:none; border:none; outline:none; background:tr
   <div class="chat-header">
 
   <div class="header-left">
-    <img src="https://s6.uupload.ir/files/inshot_20251225_164915200_i1sr.png">  
+    <img class="logo"
+    src="https://s6.uupload.ir/files/inshot_20251225_164915200_i1sr.png">  
     <h1>Redlighte chat</h1>
   </div>
 
