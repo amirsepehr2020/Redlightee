@@ -418,6 +418,31 @@ textarea#textInput{flex:1; resize:none; border:none; outline:none; background:tr
   filter: hue-rotate(280deg) drop-shadow(0 0 18px #9b00ff);
 }
 
+/* گلو قرمز با پالس */
+.logo{
+  animation: redGlowPulse 1.6s infinite alternate;
+}
+
+@keyframes redGlowPulse{
+  from{
+    filter: drop-shadow(0 0 4px #ff2a2a)
+            drop-shadow(0 0 8px #ff2a2a)
+            drop-shadow(0 0 12px #ff0000);
+  }
+  to{
+    filter: drop-shadow(0 0 10px #ff2a2a)
+            drop-shadow(0 0 18px #ff2a2a)
+            drop-shadow(0 0 28px #ff0000);
+  }
+}
+
+/* وقتی مود تصویرسازی فعاله → انیمیشن قرمز خاموش */
+.logo.image-mode{
+  animation: none;
+  filter: none;
+}
+
+
 </style>  </head>  
 <body class="dark"‌>  
 <div id="splash">
