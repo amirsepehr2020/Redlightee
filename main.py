@@ -68,8 +68,8 @@ body{margin:0;height:100vh;display:flex;flex-direction:column;align-items:center
 
   /* سایز لوگو برای ردیفی شدن */
 .chat-header img.logo{
-  width:60px !important;
-  height:60px !important;
+  width:80px !important;
+  height:80px !important;
 }
 
 @keyframes logoPulse{0%{filter:drop-shadow(0 0 8px rgba(255,0,0,.4))}50%{filter:drop-shadow(0 0 22px rgba(255,0,0,1))}100%{filter:drop-shadow(0 0 8px rgba(255,0,0,.4))}}  
