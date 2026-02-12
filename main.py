@@ -429,6 +429,72 @@ textarea#textInput{flex:1; resize:none; border:none; outline:none; background:tr
   filter: hue-rotate(280deg) drop-shadow(0 0 18px #9b00ff);
 }
 
+.support{
+  margin-top:10px;
+  text-align:center;
+}
+
+.support span{
+  cursor:pointer;
+  color:#00ff88;
+  font-weight:bold;
+  font-size:14px;
+  text-shadow:0 0 8px rgba(0,255,120,.7);
+  transition:.25s;
+}
+
+.support span:hover{
+  transform:scale(1.1);
+  text-shadow:0 0 16px rgba(0,255,120,1);
+}
+
+.support-modal{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.6);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  z-index:999;
+}
+
+.support-box{
+  width:90%;
+  max-width:400px;
+  background:#0f0f0f;
+  border-radius:16px;
+  padding:20px;
+  text-align:center;
+  box-shadow:0 0 30px rgba(0,255,120,.4);
+  animation:fadeUp .25s ease;
+}
+
+.support-box h2{
+  color:#00ff88;
+  margin-top:0;
+  text-shadow:0 0 12px #00ff88;
+}
+
+.support-box a{
+  display:block;
+  margin-top:10px;
+  color:#00ff88;
+  font-weight:bold;
+  text-decoration:none;
+  font-size:15px;
+}
+
+.support-box button{
+  margin-top:18px;
+  width:100%;
+  padding:10px;
+  border:none;
+  border-radius:10px;
+  background:#00c46b;
+  color:white;
+  font-weight:bold;
+  cursor:pointer;
+}
 
 </style>  </head>  
 <body class="dark"‌>  
@@ -467,6 +533,17 @@ textarea#textInput{flex:1; resize:none; border:none; outline:none; background:tr
 سپاس از انتخاب شما
 -تیم توسعه دهندگی سحاب قرمز (Red Boy)</p>
     </div>
+<div class="support-modal" id="supportModal">
+  <div class="support-box">
+    <h2>پشتیبانی ردلایت</h2>
+
+    <p>برای ارتباط روی ایمیل زیر بزن:</p>
+
+    <a id="supportEmail" href="#">support@email.com</a>
+
+    <button id="closeSupport">بستن</button>
+  </div>
+</div>
 
     <button id="closeLegal">بستن</button>
     </div>
@@ -526,6 +603,9 @@ textarea#textInput{flex:1; resize:none; border:none; outline:none; background:tr
     تمامی اطلاعات ردلایت محفوظ است |+قوانین و حریم خصوصی
     </span>
   </div>
+<div class="support">
+  <span id="openSupport">SUPPORT / پشتیبانی</span>
+</div>
 
 </div>  
 <script>  
@@ -567,6 +647,43 @@ const sendBtn = document.getElementById("sendBtn");
 
 // ✅ اضافه برای کنترل لوگو
 const logo = document.querySelector(".logo");
+
+const openSupport = document.getElementById("openSupport");
+const supportModal = document.getElementById("supportModal");
+const closeSupport = document.getElementById("closeSupport");
+const email = "SUPPORT@REDLIGHTE.IR";   // ایمیل واقعی رو بده بذارم
+
+const device = navigator.userAgent;
+const lang = navigator.language;
+const platform = navigator.platform;
+
+const subject = encodeURIComponent("درخواست پشتیبانی Redlighte");
+
+const body = encodeURIComponent(
+`سلام تیم ردلایت ❤️
+
+مشکل من:
+(اینجا توضیح دهید)
+
+--------------
+اطلاعات دستگاه:
+مدل: ${device}
+سیستم: ${platform}
+زبان: ${lang}
+`
+);
+
+document.getElementById("supportEmail").href =
+`mailto:${email}?subject=${subject}&body=${body}`;
+
+
+openSupport.onclick = () => {
+  supportModal.style.display = "flex";
+};
+
+closeSupport.onclick = () => {
+  supportModal.style.display = "none";
+};
 
 let lastUser = "", lastBot = "";
 let currentMode = "chat";
