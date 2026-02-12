@@ -386,6 +386,37 @@ textarea#textInput{flex:1; resize:none; border:none; outline:none; background:tr
   gap:8px;
 }
 
+/* حالت عادی */
+.logo{
+  transition: all .3s ease;
+}
+
+/* وقتی پیام جدید میاد */
+.logo.flash{
+  animation: logoFlash .6s ease;
+}
+
+@keyframes logoFlash{
+  0%{filter: drop-shadow(0 0 5px #fff);}
+  50%{filter: drop-shadow(0 0 25px #ff0000) brightness(1.4);}
+  100%{filter: drop-shadow(0 0 5px #fff);}
+}
+
+/* وقتی در حال تایپه */
+.logo.typing{
+  animation: logoTyping .9s infinite;
+}
+
+@keyframes logoTyping{
+  0%{transform: scale(1);}
+  50%{transform: scale(1.12);}
+  100%{transform: scale(1);}
+}
+
+/* وقتی تصویر میسازه */
+.logo.image-mode{
+  filter: hue-rotate(280deg) drop-shadow(0 0 18px #9b00ff);
+}
 
 </style>  </head>  
 <body class="dark"‌>  
@@ -520,16 +551,19 @@ const modeBtn = document.getElementById("modeBtn");
 const modePanel = document.getElementById("modePanel");
 const modeItems = document.querySelectorAll(".mode-item");
 
-const sendBtn = document.getElementById("sendBtn"); // ✨ اضافه شد
+const sendBtn = document.getElementById("sendBtn");
+
+// ✅ اضافه برای کنترل لوگو
+const logo = document.querySelector(".logo");
 
 let lastUser = "", lastBot = "";
-let currentMode = "chat"; // chat | image
+let currentMode = "chat";
 
 function toggleTheme(){
     themeBtn.classList.remove("animate");
     void themeBtn.offsetWidth;
     themeBtn.classList.add("animate");
-    document.body.classList.toggle("dark");// تنظیم اولیه متن مود
+    document.body.classList.toggle("dark");
     themeText.innerText = document.body.classList.contains("dark") ? "دارک مود" : "لایت مود";
     themeText.style.color = document.body.classList.contains("dark") ? "#fff" : "#000";
 }
@@ -549,10 +583,17 @@ function addMsg(text, type){
     if(type === "bot"){
         lastBot = text;
         vibrateBot();
+
+        // ✅ برق زدن لوگو هنگام جواب
+        if(logo){
+            logo.classList.remove("flash");
+            void logo.offsetWidth;
+            logo.classList.add("flash");
+        }
     }
 }
 
-/* ========= مرحله ۳ (ارتقا یافته): پنل مود با انیمیشن ========= */
+/* ========= پنل مود ========= */
 modeBtn.onclick = (e) => {
     e.preventDefault();
 
@@ -572,15 +613,18 @@ function closeModePanel() {
     }, 350);
 }
 
-/* ========= مرحله ۴: انتخاب مود ========= */
+/* ========= انتخاب مود ========= */
 modeItems.forEach(item => {
     item.onclick = () => {
         currentMode = item.dataset.mode;
 
         if (currentMode === "image") {
             textInput.placeholder = "توصیف تصویر رو بنویس 🎨";
+            // ✅ رنگ فضایی لوگو
+            if(logo) logo.classList.add("image-mode");
         } else {
             textInput.placeholder = "Ask Redlighte...";
+            if(logo) logo.classList.remove("image-mode");
         }
 
         modeItems.forEach(i => i.classList.remove("active"));
@@ -600,7 +644,6 @@ chatForm.onsubmit = async e => {
     const text = textInput.value.trim();
     if (!text) return;
 
-    // ✨ انیمیشن فضایی دکمه
     if (sendBtn) {
         sendBtn.classList.remove("space-animate");
         void sendBtn.offsetWidth;
@@ -615,6 +658,9 @@ chatForm.onsubmit = async e => {
     box.appendChild(typing);
     box.scrollTop = box.scrollHeight;
 
+    // ✅ شروع تپیدن لوگو
+    if(logo) logo.classList.add("typing");
+
     try {
         if (currentMode === "image") {
             const res = await fetch("/image", {
@@ -625,6 +671,7 @@ chatForm.onsubmit = async e => {
 
             const data = await res.json();
             typing.remove();
+            if(logo) logo.classList.remove("typing");
 
             if (data.image) {
                 const imgMsg = document.createElement("div");
@@ -645,11 +692,13 @@ chatForm.onsubmit = async e => {
 
             const data = await res.json();
             typing.remove();
+            if(logo) logo.classList.remove("typing");
             addMsg(data.reply, "bot");
         }
 
     } catch (err) {
         typing.remove();
+        if(logo) logo.classList.remove("typing");
         addMsg("❌ خطا در ارتباط", "bot");
         console.error(err);
     }
@@ -676,29 +725,32 @@ function vibrateBot(){
         navigator.vibrate([30, 40, 30]);
     }
 }
+
 function animateSend(){
   sendBtn.style.transform = "scale(0.8)";
   setTimeout(()=>{
     sendBtn.style.transform = "scale(1)";
   },120);
 }
+
 function clearChat(){
   if(confirm("همه پیام‌ها پاک شوند؟")){
     box.innerHTML = "";
   }
 }
+
 window.addEventListener("load",()=>{
   setTimeout(()=>{
     const splash=document.getElementById("splash");
     if(splash) splash.remove();
   },3000);
 });
+
 window.addEventListener("load",()=>{
   setTimeout(()=>{
     addMsg("سلام 👋 من ردلایتم، بپرس تا کمکت کنم.", "bot");
-  }, 3200); // بعد از اسپلش
+  }, 3200);
 });
-
 </script></body>  
 </html>  
 """)
