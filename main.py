@@ -435,18 +435,14 @@ textarea#textInput{flex:1; resize:none; border:none; outline:none; background:tr
 }
 
 .support span{
-  cursor:pointer;
   color:#aaa;
-  font-weight:bold;
-  font-size:14px;
-  text-shadow:0 0 8px rgba(0,255,120,.7);
-  transition:.25s;
 }
 
 .support span:hover{
-  transform:scale(1.1);
-  text-shadow:0 0 16px rgba(0,255,120,1);
+  color:#ff0033;
+  text-shadow:0 0 6px rgba(255,0,51,.6);
 }
+
 
 .support-modal{
   position:fixed;
