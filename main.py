@@ -424,6 +424,7 @@ textarea#textInput{flex:1; resize:none; border:none; outline:none; background:tr
     <button id="closeLegal">بستن</button>
     </div>
   </div>
+  <div class="chat-container"> 
   <div class="chat-header">
 
   <div class="header-left">
