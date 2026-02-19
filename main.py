@@ -611,6 +611,10 @@ textarea#textInput{flex:1; resize:none; border:none; outline:none; background:tr
     src="https://s6.uupload.ir/files/inshot_20251225_164915200_i1sr.png">  
     <h1>Redlighte </h1>
   </div>
+<button class="theme-btn" onclick="openHistory()">
+  <span class="icon">📜</span>
+  <span class="text">History</span>
+</button>
 
 <button class="theme-btn" onclick="openAuth()">
   <span class="icon">👤</span>
