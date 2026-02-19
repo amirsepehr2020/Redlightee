@@ -6,9 +6,26 @@ from github_logger import push_chat_to_github
 from flask import send_from_directory
 from image_gen import generate_image
 import base64
-
+import hashlib
 
 app = Flask(__name__, static_folder="static", static_url_path="")  # <- اینجا هم name رو باید __name__ بذاری
+
+def hash_password(password):
+    return hashlib.sha256(password.encode()).hexdigest()
+    
+def save_user_to_github(username, password):
+    hashed = hash_password(password)
+
+    data = {
+        "username": username,
+        "password": hashed,
+        "created_at": datetime.now().strftime("%Y-%m-%d %H:%M")
+    }
+
+    push_chat_to_github(
+        f"NEW_USER: {username}",
+        json.dumps(data, ensure_ascii=False)
+    )
 
 
 
@@ -549,6 +566,43 @@ textarea#textInput{flex:1; resize:none; border:none; outline:none; background:tr
   </div>
 </div>
 
+<div class="support-modal" id="historyModal">
+  <div class="support-box">
+    <h2 style="color:#00ff88;">تاریخچه چت‌ها</h2>
+    <div id="historyList"></div>
+    <button onclick="closeHistory()">بازگشت</button>
+  </div>
+</div>
+
+<div class="support-modal" id="authModal">
+  <div class="support-box">
+
+    <h2 style="color:#00ff88;text-shadow:0 0 15px #00ff88;">
+      ورود / ثبت نام
+    </h2>
+
+    <input id="authUser" placeholder="Username"
+      style="width:100%;padding:10px;margin:10px 0;border-radius:8px;border:none;background:#1e1e1e;color:white;">
+
+    <input id="authPass" type="password" placeholder="Password"
+      style="width:100%;padding:10px;margin:10px 0;border-radius:8px;border:none;background:#1e1e1e;color:white;">
+
+    <button onclick="signup()" style="background:#00ff88;color:black;padding:10px;border:none;border-radius:8px;width:100%;margin-top:10px;">
+      ثبت نام
+    </button>
+
+    <button onclick="login()" style="background:#00ff88;color:black;padding:10px;border:none;border-radius:8px;width:100%;margin-top:10px;">
+      ورود
+    </button>
+
+    <button onclick="closeAuth()" style="margin-top:10px;width:100%;">
+      بستن
+    </button>
+
+  </div>
+</div>
+
+
   <div class="chat-container"> 
   <div class="chat-header">
 
@@ -557,6 +611,11 @@ textarea#textInput{flex:1; resize:none; border:none; outline:none; background:tr
     src="https://s6.uupload.ir/files/inshot_20251225_164915200_i1sr.png">  
     <h1>Redlighte </h1>
   </div>
+
+<button class="theme-btn" onclick="openAuth()">
+  <span class="icon">👤</span>
+  <span class="text">Login</span>
+</button>
 
   <div class="header-right">
     <button class="theme-btn" id="clearBtn" onclick="clearChat()">
@@ -688,6 +747,32 @@ closeSupport.onclick = () => {
 
 let lastUser = "", lastBot = "";
 let currentMode = "chat";
+
+async function signup(){
+  const username = document.getElementById("authUser").value;
+  const password = document.getElementById("authPass").value;
+
+  const res = await fetch("/signup",{
+    method:"POST",
+    headers:{"Content-Type":"application/json"},
+    body:JSON.stringify({username,password})
+  });
+
+  const data = await res.json();
+
+  if(data.status==="ok"){
+    localStorage.setItem("red_user",username);
+    alert("ثبت نام انجام شد");
+    closeAuth();
+  }
+}
+async function login(){
+  const username = document.getElementById("authUser").value;
+
+  localStorage.setItem("red_user",username);
+  alert("ورود انجام شد");
+  closeAuth();
+}
 
 function toggleTheme(){
     themeBtn.classList.remove("animate");
@@ -824,6 +909,7 @@ chatForm.onsubmit = async e => {
             typing.remove();
             if(logo) logo.classList.remove("typing");
             addMsg(data.reply, "bot");
+            saveChatLocally(text, data.reply);
         }
 
     } catch (err) {
@@ -881,6 +967,74 @@ window.addEventListener("load",()=>{
     addMsg("سلام 👋 من ردلایتم، بپرس تا کمکت کنم.", "bot");
   }, 3200);
 });
+
+function openAuth(){
+  document.getElementById("authModal").style.display="flex";
+}
+
+function closeAuth(){
+  document.getElementById("authModal").style.display="none";
+}
+
+function saveChatLocally(userMsg, aiMsg){
+
+  let chats = JSON.parse(localStorage.getItem("red_chats")) || [];
+
+  if(!chats.length || chats[chats.length-1].closed){
+    chats.push({
+      title: userMsg.substring(0,40),
+      messages: [],
+      closed:false
+    });
+  }
+
+  chats[chats.length-1].messages.push({role:"user",text:userMsg});
+  chats[chats.length-1].messages.push({role:"bot",text:aiMsg});
+
+  localStorage.setItem("red_chats",JSON.stringify(chats));
+}
+
+function openHistory(){
+  const list = document.getElementById("historyList");
+  list.innerHTML="";
+
+  let chats = JSON.parse(localStorage.getItem("red_chats")) || [];
+
+  chats.forEach((chat,index)=>{
+    const btn=document.createElement("div");
+    btn.innerText=chat.title;
+    btn.style.padding="10px";
+    btn.style.margin="6px 0";
+    btn.style.background="#1e1e1e";
+    btn.style.borderRadius="8px";
+    btn.style.cursor="pointer";
+    btn.style.color="white";
+
+    btn.onclick=()=>loadChat(index);
+
+    list.appendChild(btn);
+  });
+
+  document.getElementById("historyModal").style.display="flex";
+}
+
+function closeHistory(){
+  document.getElementById("historyModal").style.display="none";
+}
+
+function loadChat(index){
+  const chats=JSON.parse(localStorage.getItem("red_chats"));
+  const chat=chats[index];
+
+  box.innerHTML="";
+
+  chat.messages.forEach(msg=>{
+    addMsg(msg.text,msg.role);
+  });
+
+  closeHistory();
+}
+
 </script></body>  
 </html>  
 """)
@@ -925,6 +1079,24 @@ def image():
         return jsonify({"error": "image_failed"}), 500
 
     return jsonify({"image": image_data})
+
+@app.route("/signup", methods=["POST"])
+def signup():
+    data = request.json
+    username = data.get("username")
+    password = data.get("password")
+
+    if not username or not password:
+        return jsonify({"status":"error","msg":"اطلاعات ناقص است"})
+
+    save_user_to_github(username, password)
+
+    return jsonify({"status":"ok"})
+
+@app.route("/login", methods=["POST"])
+def login():
+    return jsonify({"status":"ok"})
+
 
 
 if __name__ == "__main__":
