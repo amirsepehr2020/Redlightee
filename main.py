@@ -768,6 +768,7 @@ async function signup(){
     localStorage.setItem("red_user",username);
     alert("ثبت نام انجام شد");
     closeAuth();
+    updateUserUI();
   }
 }
 async function login(){
@@ -776,6 +777,18 @@ async function login(){
   localStorage.setItem("red_user",username);
   alert("ورود انجام شد");
   closeAuth();
+  updateUserUI();
+}
+
+function updateUserUI(){
+  const user = localStorage.getItem("red_user");
+  const loginText = document.querySelector(".theme-btn .text");
+
+  if(user){
+    loginText.innerText = user;
+  }else{
+    loginText.innerText = "Login";
+  }
 }
 
 function toggleTheme(){
@@ -964,6 +977,7 @@ window.addEventListener("load",()=>{
     const splash=document.getElementById("splash");
     if(splash) splash.remove();
   },3000);
+  updateUserUI();
 });
 
 window.addEventListener("load",()=>{
@@ -982,7 +996,10 @@ function closeAuth(){
 
 function saveChatLocally(userMsg, aiMsg){
 
-  let chats = JSON.parse(localStorage.getItem("red_chats")) || [];
+  const user = localStorage.getItem("red_user");
+if(!user) return;
+
+let chats = JSON.parse(localStorage.getItem("red_chats_"+user)) || [];
 
   if(!chats.length || chats[chats.length-1].closed){
     chats.push({
@@ -995,14 +1012,21 @@ function saveChatLocally(userMsg, aiMsg){
   chats[chats.length-1].messages.push({role:"user",text:userMsg});
   chats[chats.length-1].messages.push({role:"bot",text:aiMsg});
 
-  localStorage.setItem("red_chats",JSON.stringify(chats));
+  localStorage.setItem("red_chats_"+user,JSON.stringify(chats));
 }
 
 function openHistory(){
   const list = document.getElementById("historyList");
   list.innerHTML="";
 
-  let chats = JSON.parse(localStorage.getItem("red_chats")) || [];
+  const user = localStorage.getItem("red_user");
+if(!user){
+  alert("ابتدا وارد شوید");
+  return;
+}
+
+let chats = JSON.parse(localStorage.getItem("red_chats_"+user)) || [];
+
 
   chats.forEach((chat,index)=>{
     const btn=document.createElement("div");
