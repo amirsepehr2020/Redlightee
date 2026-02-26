@@ -1051,7 +1051,8 @@ function closeHistory(){
 }
 
 function loadChat(index){
-  const chats=JSON.parse(localStorage.getItem("red_chats"));
+  const user = localStorage.getItem("red_user");
+const chats=JSON.parse(localStorage.getItem("red_chats_"+user));
   const chat=chats[index];
 
   box.innerHTML="";
